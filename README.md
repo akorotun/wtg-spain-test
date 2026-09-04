@@ -25,7 +25,7 @@ cp .env.example .env
 Зібрати та запустити Docker-контейнери:
 
 ```bash
-docker compose up -d --build
+docker compose up -d --build app mysql nginx
 ```
 
 Встановити PHP-залежності:
@@ -40,12 +40,6 @@ docker compose exec app composer install
 docker compose exec app php artisan key:generate
 ```
 
-Виконати міграції:
-
-```bash
-docker compose exec app php artisan migrate
-```
-
 Застосунок буде доступний за адресою:
 
 ```text
@@ -54,11 +48,22 @@ http://wtg-spain-test.localhost:8080
 
 ## Міграції та seeders
 
-Буде доповнено під час реалізації.
+Виконати міграції:
+
+```bash
+docker compose exec app php artisan migrate
+```
+
+Запустити seeders:
+```bash
+docker compose exec app php artisan db:seed
+```
 
 ## Queue worker
 
-Буде доповнено під час реалізації.
+```bash
+docker compose up -d queue
+```
 
 ## Тести
 
