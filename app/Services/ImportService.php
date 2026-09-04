@@ -59,4 +59,11 @@ class ImportService
             return [$import, true];
         });
     }
+
+    public function showImport(int $importId): ?Import
+    {
+        return Import::query()
+            ->with('supplier')
+            ->find($importId);
+    }
 }

@@ -3,5 +3,5 @@
 use App\Http\Controllers\ImportController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/imports', [ImportController::class, 'store'])
-    ->name('imports.store');
+Route::post('/imports', [ImportController::class, 'store'])->name('imports.store');
+Route::get('/imports/{importId}', [ImportController::class, 'show'])->name('imports.show');
