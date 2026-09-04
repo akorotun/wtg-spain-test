@@ -55,5 +55,25 @@ services:
       timeout: 5s
       retries: 10
 
+  mysql-test:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${DB_TEST_DATABASE:-wtg_spain_test}
+      MYSQL_USER: ${DB_TEST_USERNAME:-wtg_spain_test}
+      MYSQL_PASSWORD: ${DB_TEST_PASSWORD:-secret_test}
+      MYSQL_ROOT_PASSWORD: ${DB_TEST_ROOT_PASSWORD:-root_secret_test}
+    volumes:
+      - mysql-test-data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD --silent"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
 volumes:
   mysql-data:
+  mysql-test-data:
