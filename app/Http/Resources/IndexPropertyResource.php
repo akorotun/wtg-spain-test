@@ -29,7 +29,7 @@ class IndexPropertyResource extends JsonResource
                 'price' => $this->price,
                 'currency' => $this->currency,
                 'available_units' => $this->available_units,
-                'expires_at' => $this->expires_at,
+                'expires_at' => $this->expires_at?->toIso8601ZuluString(),
             ]
 
         ];
