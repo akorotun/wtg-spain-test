@@ -58,6 +58,10 @@ docker compose exec app php artisan migrate
 ```bash
 docker compose exec app php artisan db:seed
 ```
+Seeder для запиту GET /api/properties
+```bash
+docker compose exec app php artisan db:seed --class=PropertySearchPerformanceSeeder
+```
 
 ## Queue worker
 
@@ -67,7 +71,7 @@ docker compose up -d queue
 
 ## Тести
 
-Буде доповнено під час реалізації.
+docker compose exec app php artisan test --env=testing
 
 ## Ідемпотентність імпорту
 
