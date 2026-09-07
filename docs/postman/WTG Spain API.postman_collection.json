@@ -1,0 +1,200 @@
+{
+  "info": {
+    "_postman_id": "6d3d86e0-5660-40d7-b98b-5ddc33dc411f",
+    "name": "WTG Spain API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "23094431",
+    "_collection_link": "https://go.postman.co/collection/23094431-6d3d86e0-5660-40d7-b98b-5ddc33dc411f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Import",
+      "item": [
+        {
+          "name": "store",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"supplier\": \"supplier-b\",//supplier-a, supplier-b\r\n  \"external_import_id\": \"import-2026-09-04-004\",\r\n  \"sent_at\": \"2026-09-04T15:30:00Z\",\r\n  \"offers\": [\r\n    {\r\n      \"external_id\": \"offer-001-01\",//offer-001\r\n      \"check_in\": \"2026-09-15\",\r\n      \"check_out\": \"2026-09-20\",\r\n      \"max_guests\": 2,\r\n      \"price\": 45200,\r\n      \"currency\": \"EUR\",\r\n      \"available_units\": 3,\r\n      \"expires_at\": \"2026-10-01T00:00:01Z\",\r\n      \"property\": {\r\n        \"code\": \"hotel-001\",\r\n        \"name\": \"Hotel Barcelona Center\",\r\n        \"city\": \"Barcelona\"\r\n      }\r\n    },\r\n    {\r\n      \"external_id\": \"offer-002-01\",\r\n      \"check_in\": \"2026-09-18\",\r\n      \"check_out\": \"2026-09-23\",\r\n      \"max_guests\": 4,\r\n      \"price\": 72200,\r\n      \"currency\": \"EUR\",\r\n      \"available_units\": 2,\r\n      \"expires_at\": \"2026-10-05T15:30:00Z\",\r\n      \"property\": {\r\n        \"code\": \"hotel-002\",\r\n        \"name\": \"Madrid Plaza Hotel - ТЕСТ\",\r\n        \"city\": \"Madrid\"\r\n      }\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://wtg-spain-test.localhost:8080/api/imports",
+              "protocol": "http",
+              "host": [
+                "wtg-spain-test",
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "imports"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "show / {import_id}",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://wtg-spain-test.localhost:8080/api/imports/11",
+              "protocol": "http",
+              "host": [
+                "wtg-spain-test",
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "imports",
+                "11"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Property",
+      "item": [
+        {
+          "name": "index",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://wtg-spain-test.localhost:8080/api/properties?city=Valencia&check_in=2026-10-10&check_out=2026-10-15&guests=1&page=1&per_page=50",
+              "protocol": "http",
+              "host": [
+                "wtg-spain-test",
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "properties"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "Valencia",
+                  "description": "Madrid / Barcelona / Valencia"
+                },
+                {
+                  "key": "check_in",
+                  "value": "2026-10-10",
+                  "description": "2026-09-15 / 2026-10-10"
+                },
+                {
+                  "key": "check_out",
+                  "value": "2026-10-15",
+                  "description": "2026-09-20 / 2026-10-15"
+                },
+                {
+                  "key": "guests",
+                  "value": "1"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "50"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reservation",
+      "item": [
+        {
+          "name": "store",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"client_reference\": \"web-order-001\",\r\n  \"customer_name\": \"John Smith\",\r\n  \"customer_email\": \"john@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://wtg-spain-test.localhost:8080/api/offers/15/reservations",
+              "protocol": "http",
+              "host": [
+                "wtg-spain-test",
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "offers",
+                "15",
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

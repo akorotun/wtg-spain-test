@@ -122,6 +122,12 @@ Endpoint `GET /api/properties`.
 - термін дії пропозиції (expires_at > now());
 - місто, якщо передано параметр city.
 
+## Postman
+
+Готова Postman collection для перевірки API:
+
+`docs/postman/WTG Spain API.postman_collection.json`
+
 
 ## Додаткова документація
 
