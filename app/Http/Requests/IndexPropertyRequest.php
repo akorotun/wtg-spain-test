@@ -28,7 +28,7 @@ class IndexPropertyRequest extends FormRequest
             'check_out' => ['required', 'date_format:Y-m-d'],
             'guests' => ['required', 'integer', 'min:1'],
             'page' => ['sometimes', 'integer', 'min:1'],
-            'per_page' => ['sometimes', 'integer', 'min:1'],
+            'per_page' => ['sometimes', 'integer', 'min:1', 'max:50'],
         ];
     }
 }

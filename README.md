@@ -16,16 +16,17 @@ git clone https://github.com/akorotun/wtg-spain-test.git
 cd wtg-spain-test
 ```
 
-Створити локальний файл конфігурації:
+Створити локальні файли конфігурації:
 
 ```bash
 cp .env.example .env
+cp .env.testing.example .env.testing
 ```
 
 Зібрати та запустити Docker-контейнери:
 
 ```bash
-docker compose up -d --build app mysql nginx
+docker compose up -d --build app mysql nginx mysql-test
 ```
 
 Встановити PHP-залежності:
@@ -34,10 +35,11 @@ docker compose up -d --build app mysql nginx
 docker compose exec app composer install
 ```
 
-Згенерувати ключ застосунку:
+Згенерувати ключі застосунку:
 
 ```bash
 docker compose exec app php artisan key:generate
+docker compose exec app php artisan key:generate --env=testing
 ```
 
 Застосунок буде доступний за адресою:
@@ -80,6 +82,11 @@ docker compose up -d queue
 
 ## Тести
 Тести покривають основні сценарії імпорту, пошуку житла та бронювання.
+
+Тести використовують окрему MySQL базу даних у контейнері `mysql-test`.
+
+Запустити тести:
+
 ```bash
 docker compose exec app php artisan test --env=testing
 ```
