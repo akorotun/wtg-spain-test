@@ -244,6 +244,36 @@ class IndexPropertyTest extends TestCase
         $this->assertNull($response->json('prev'));
     }
 
+    public function test_pagination_preserves_search_query_string(): void
+    {
+        $supplier = Supplier::factory()->create(['code' => 'supplier-a']);
+
+        $property1 = $this->createProperty('Barcelona');
+        $property2 = $this->createProperty('Barcelona');
+        $property3 = $this->createProperty('Barcelona');
+
+        $this->createOffer($property1, $supplier, ['external_id' => 'offer-1', 'price' => 70000]);
+        $this->createOffer($property2, $supplier, ['external_id' => 'offer-2', 'price' => 80000]);
+        $this->createOffer($property3, $supplier, ['external_id' => 'offer-3', 'price' => 90000]);
+
+        $response = $this->getJson(route('properties.index', [
+            'city' => 'Barcelona',
+            'check_in' => '2026-10-10',
+            'check_out' => '2026-10-15',
+            'guests' => 2,
+            'per_page' => 2,
+            'page' => 1,
+        ]));
+
+        $next = $response->json('next');
+        $this->assertStringContainsString('city=Barcelona', $next);
+        $this->assertStringContainsString('check_in=2026-10-10', $next);
+        $this->assertStringContainsString('check_out=2026-10-15', $next);
+        $this->assertStringContainsString('guests=2', $next);
+        $this->assertStringContainsString('per_page=2', $next);
+        $this->assertStringContainsString('page=2', $next);
+    }
+
     public function test_it_sorts_properties_by_best_offer_price(): void
     {
         $supplier = Supplier::factory()->create(['code' => 'supplier-a']);

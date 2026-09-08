@@ -23,6 +23,17 @@ cp .env.example .env
 cp .env.testing.example .env.testing
 ```
 
+### Application port
+
+За замовчуванням застосунок доступний на порту `8080`.
+
+Якщо порт `8080` уже зайнятий, вкажіть інший порт у `.env`:
+
+```env
+APP_PORT=8081
+APP_URL=http://wtg-spain-test.localhost:8081
+```
+
 Зібрати та запустити Docker-контейнери:
 
 ```bash
@@ -42,11 +53,12 @@ docker compose exec app php artisan key:generate
 docker compose exec app php artisan key:generate --env=testing
 ```
 
-Застосунок буде доступний за адресою:
+За замовчуванням застосунок буде доступний за адресою:
 
 ```text
 http://wtg-spain-test.localhost:8080
 ```
+Якщо `APP_PORT` змінено, використовуйте відповідний порт.
 
 ## Міграції та seeders
 

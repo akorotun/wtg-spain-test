@@ -6,8 +6,8 @@ use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/imports', [ImportController::class, 'store'])->name('imports.store');
-Route::get('/imports/{importId}', [ImportController::class, 'show'])->name('imports.show');
+Route::get('/imports/{importId}', [ImportController::class, 'show'])->name('imports.show')->whereNumber('importId');
 
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 
-Route::post('/offers/{offerId}/reservations', [ReservationController::class, 'store'])->name('reservation.store');
+Route::post('/offers/{offerId}/reservations', [ReservationController::class, 'store'])->name('reservation.store')->whereNumber('offerId');

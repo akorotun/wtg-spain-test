@@ -59,6 +59,13 @@ class ShowImportTest extends TestCase
             ]);
     }
 
+    public function test_it_returns_404_for_non_numeric_import(): void
+    {
+        $response = $this->getJson('/api/imports/abc');
+
+        $response->assertStatus(404);
+    }
+
     public function test_it_returns_import_with_failed_status(): void
     {
         $supplier = Supplier::factory()->create(['code' => 'supplier-1']);

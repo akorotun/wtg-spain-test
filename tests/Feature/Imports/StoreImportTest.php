@@ -177,6 +177,54 @@ class StoreImportTest extends TestCase
         Bus::assertNotDispatched(ProcessImportJob::class);
     }
 
+    public function test_it_rejects_check_out_before_check_in(): void
+    {
+        Bus::fake();
+
+        $supplier = Supplier::factory()->create(['code' => 'supplier-1']);
+
+        $response = $this->postJson(route('imports.store'), [
+            'supplier' => $supplier->code,
+            'external_import_id' => 'ext-1',
+            'sent_at' => '2026-09-04T12:00:00Z',
+            'offers' => [
+                array_merge($this->validPayload()['offers'][0], [
+                    'check_in' => '2026-10-31',
+                    'check_out' => '2026-10-01',
+                ]),
+            ],
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['offers.0.check_out']);
+
+        Bus::assertNotDispatched(ProcessImportJob::class);
+    }
+
+    public function test_it_rejects_check_out_equal_to_check_in(): void
+    {
+        Bus::fake();
+
+        $supplier = Supplier::factory()->create(['code' => 'supplier-1']);
+
+        $response = $this->postJson(route('imports.store'), [
+            'supplier' => $supplier->code,
+            'external_import_id' => 'ext-1',
+            'sent_at' => '2026-09-04T12:00:00Z',
+            'offers' => [
+                array_merge($this->validPayload()['offers'][0], [
+                    'check_in' => '2026-10-01',
+                    'check_out' => '2026-10-01',
+                ]),
+            ],
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['offers.0.check_out']);
+
+        Bus::assertNotDispatched(ProcessImportJob::class);
+    }
+
     private function validPayload(array $overrides = []): array
     {
         return array_merge([

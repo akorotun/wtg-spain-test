@@ -159,6 +159,20 @@ class StoreReservationTest extends TestCase
         $this->assertDatabaseCount('reservations', 0);
     }
 
+    public function test_it_returns_404_for_non_numeric_offer(): void
+    {
+        $payload = [
+            'client_reference' => 'REF-' . uniqid(),
+            'customer_name' => 'John Doe',
+            'customer_email' => 'john@example.com',
+        ];
+
+        $response = $this->postJson('/api/offers/abc/reservations', $payload);
+
+        $response->assertStatus(404);
+        $this->assertDatabaseCount('reservations', 0);
+    }
+
     public function test_it_validates_required_fields(): void
     {
         $offer = $this->createOffer(['available_units' => 5]);

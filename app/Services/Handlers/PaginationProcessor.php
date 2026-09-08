@@ -12,6 +12,8 @@ class PaginationProcessor
      */
     public function process(Paginator $paginator, string $resource): array
     {
+        $paginator->withQueryString();
+
         return [
             'data' => $resource::collection($paginator->items()),
             'next' => $paginator->nextPageUrl(),

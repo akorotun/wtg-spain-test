@@ -33,7 +33,7 @@ class StoreImportRequest extends FormRequest
 
             'offers.*.external_id' => ['required', 'string'],
             'offers.*.check_in' => ['required', 'date_format:Y-m-d'],
-            'offers.*.check_out' => ['required', 'date_format:Y-m-d'],
+            'offers.*.check_out' => ['required', 'date_format:Y-m-d', 'after:offers.*.check_in'],
             'offers.*.max_guests' => ['required', 'integer', 'min:1'],
             'offers.*.price' => ['required', 'integer', 'min:1'],
             'offers.*.currency' => ['required', 'string', 'max:3'],
